@@ -6,7 +6,6 @@ const chatContainer = document.querySelector('#chat_container');
 
 let loadInterveral;
 
-
 // Create loading animation
 function loader(element) {
   element.textContent = '';
@@ -81,12 +80,11 @@ const handleSubmit = async (e) => {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   const messageDiv = document.getElementById(uniqueId);
-  console.log(messageDiv)
 
   loader(messageDiv);
 
   // fetch response from server
-  const response = await fetch(process.env.SERVER_URL, {
+  const response = await fetch(import.meta.env.VITE_SERVER_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -96,14 +94,13 @@ const handleSubmit = async (e) => {
     }),
   });
 
+
   clearInterval(loadInterveral);
   messageDiv.innerHTML = '';
 
   if (response.ok) {
     const data = await response.json();
     const parsedData = data.message.trim();
-
-    console.log(parsedData)
 
     typeText(messageDiv, parsedData);
   } else {
