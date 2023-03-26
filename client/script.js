@@ -86,7 +86,7 @@ const handleSubmit = async (e) => {
   loader(messageDiv);
 
   // fetch response from server
-  const response = await fetch('http://localhost:8000', {
+  const response = await fetch(process.env.SERVER_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
